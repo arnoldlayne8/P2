@@ -24,7 +24,18 @@ public class Professor {
     public void setNumero(Integer numero){
         this.numero = numero;
     }
-
+    public LinkedList<Aula> getAulas() {
+        return new LinkedList<>(aulas);
+    }
+    public LinkedList<Aula> getAulas(Horario horario){
+        LinkedList<Aula> aulasSobreHorario = new LinkedList<>();
+        for (Aula aula : aulas){
+            if (aula.isSobre(horario)){
+                aulasSobreHorario.add(aula);
+            }
+        }
+        return aulasSobreHorario;
+    }
     //Métodos Instância
     public void preencherSumario(Aula aula){
 
@@ -46,6 +57,8 @@ public class Professor {
             return;
         aulas.remove(aula);
     }
+
+
     //Métodos Estáticos
 
 }

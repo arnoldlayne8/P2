@@ -54,6 +54,18 @@ public class Aluno {
 
         aulas.remove(aula);
     }
+    public LinkedList<Aula> getAulas() {
+        return new LinkedList<>(aulas);
+    }
+    public LinkedList<Aula> getAulas(Horario horario){
+        LinkedList<Aula> aulasSobreHorario = new LinkedList<>();
+        for (Aula aula : aulas){
+            if (aula.isSobre(horario)){
+                aulasSobreHorario.add(aula);
+            }
+        }
+        return aulasSobreHorario;
+    }
 
     //Métodos Estáticos
 }

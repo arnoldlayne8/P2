@@ -9,16 +9,17 @@ public class Aula {
     private StringBuilder sumario;
     private Professor professor;
     private LinkedList<Aluno> alunos;
+    private Horario horario;
 
     //Contrutores
-    public Aula(String nome, Integer numero) {
-        this(nome, numero, null, new LinkedList<>());
+    public Aula(String nome, Integer numero, Horario horario) {
+        this(nome, numero,null, null, new LinkedList<>());
     }
-    public Aula(String nome, Integer numero, Professor professor, LinkedList<Aluno> alunos){
+    public Aula(String nome, Integer numero, Horario horario, Professor professor, LinkedList<Aluno> alunos){
         this.nome = nome;
         this.numero = numero;
+        this.horario = horario;
         this.professor = professor;
-
         this.alunos = alunos;
     }
 
@@ -40,6 +41,9 @@ public class Aula {
     }
     public LinkedList<Aluno> getAlunos() {
         return new LinkedList<>(alunos);
+    }
+    public Horario getHorario() {
+        return horario;
     }
 
     //Métodos Instância
@@ -76,11 +80,14 @@ public class Aula {
 
         professor = null;
     }
-
-
     public void adicionarLinhaSumario(String linha){
         if (linha == null)
             return;
         sumario.append(linha).append('\n');
+    }
+    public boolean isSobre(Horario horario) {
+        if (horario == null)
+            return false;
+        return (this.horario.getHoraInicio() >=  horario.getHoraInicio()) && (this.horario.getHoraFim() <= horario.getHoraFim());
     }
 }

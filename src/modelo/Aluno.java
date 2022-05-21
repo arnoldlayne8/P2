@@ -12,6 +12,7 @@ public class Aluno {
     public Aluno(String nome, Integer numero) {
         this.nome = nome;
         this.numero = numero;
+        this.aulas = new LinkedList<>();
     }
 
     //Getters e Setters
@@ -44,6 +45,7 @@ public class Aluno {
             return;
 
         aulas.add(aula);
+        aula.adicionar(this);
     }
     public void remover(Aula aula){
         if (aula == null)
@@ -53,6 +55,7 @@ public class Aluno {
             return;
 
         aulas.remove(aula);
+        aula.remover(this);
     }
     public LinkedList<Aula> getAulas() {
         return new LinkedList<>(aulas);

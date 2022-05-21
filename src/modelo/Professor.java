@@ -12,6 +12,7 @@ public class Professor {
     public Professor(String nome, int numero) {
         this.nome = nome;
         this.numero = numero;
+        this.aulas = new LinkedList<>();
     }
 
     //Getters e Setters

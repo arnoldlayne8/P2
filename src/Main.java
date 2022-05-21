@@ -1,62 +1,101 @@
 import modelo.*;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Main {
 
     public Main() {
-        System.out.println(DiaSemana.DOMINGO);
-        System.out.println(DiaSemana.DOMINGO.ordinal());
-        System.out.println(Arrays.toString(DiaSemana.values()));
-        System.out.println(DiaSemana.values().length);
+        GabineteProfessor gabineteProfessorA1 = new GabineteProfessor("Gabinete Professor - A.1", false);
+        GabineteProfessor gabineteProfessorD1 = new GabineteProfessor("Gabinete Professor - D.1", true);
 
-        Professor professor1 = new Professor("Manuel Gomes", 1);
-        Professor professor2 = new Professor("Carlos Miguel", 2);
+        GabineteSeguranca gabineteSegurancaA = new GabineteSeguranca("Gabinete Segurança - Edifício A", false);
+        GabineteSeguranca gabineteSegurancaD = new GabineteSeguranca("Gabinete Segurança - Edifício D", false);
 
-        Aluno aluno1 = new Aluno("José António", 2190354);
-        Aluno aluno2 = new Aluno("Carlos Santos", 2191187);
+        Seguranca professorManuelSilva = new Seguranca("Manuel Silva", 1, gabineteProfessorA1);
+        Seguranca professorCarlosSantos = new Seguranca("Carlos Santos", 2, gabineteProfessorA1);
+        Seguranca professorJoseMonteiro = new Seguranca("José Monteiro", 3, gabineteProfessorD1);
 
-        LinkedList<Aluno> alunos = new LinkedList<>();
-        alunos.add(aluno1);
-        alunos.add(aluno2);
+        professorManuelSilva.adicionar(new Horario(DiaSemana.SEGUNDA_FEIRA, 17, 2));
+        professorCarlosSantos.adicionar(new Horario(DiaSemana.TERCA_FEIRA, 17, 2));
+        professorJoseMonteiro.adicionar(new Horario(DiaSemana.QUARTA_FEIRA, 17, 2));
 
-        Aula aula1 = new Aula("Programação 2 TP1", 1, new Horario(DiaSemana.SEGUNDA_FEIRA, 8, 2), professor1, alunos);
-        Aula aula2 = new Aula("Programação 2 PL1", 1, new Horario(DiaSemana.TERCA_FEIRA, 11, 3));
-        Aula aula3 = new Aula("Programação 2 PL2", 1, new Horario(DiaSemana.TERCA_FEIRA, 15, 3));
+        Seguranca segurancaMiguelMarques = new Seguranca("Miguel Marques", 4, gabineteSegurancaA);
+        Seguranca segurancaJoaoSantos = new Seguranca("João Santos", 5, gabineteSegurancaA);
+        Seguranca segurancaAntonioSilva = new Seguranca("António Silva", 5, gabineteSegurancaD);
 
-        aula2.setProfessor(professor2);
-        aula2.adicionar(aluno1);
+        segurancaMiguelMarques.adicionar(new Horario(DiaSemana.SEGUNDA_FEIRA, 8, 8));
+        segurancaMiguelMarques.adicionar(new Horario(DiaSemana.TERCA_FEIRA, 8, 8));
+        segurancaMiguelMarques.adicionar(new Horario(DiaSemana.QUARTA_FEIRA, 8, 8));
+        segurancaMiguelMarques.adicionar(new Horario(DiaSemana.QUINTA_FEIRA, 8, 8));
+        segurancaMiguelMarques.adicionar(new Horario(DiaSemana.SEXTA_FEIRA, 8, 8));
 
-        aula3.setProfessor(professor2);
-        aula3.adicionar(aluno2);
+        segurancaJoaoSantos.adicionar(new Horario(DiaSemana.SEGUNDA_FEIRA, 16, 8));
+        segurancaJoaoSantos.adicionar(new Horario(DiaSemana.TERCA_FEIRA, 16, 8));
+        segurancaJoaoSantos.adicionar(new Horario(DiaSemana.QUARTA_FEIRA, 16, 8));
+        segurancaJoaoSantos.adicionar(new Horario(DiaSemana.QUINTA_FEIRA, 16, 8));
+        segurancaJoaoSantos.adicionar(new Horario(DiaSemana.SEXTA_FEIRA, 16, 8));
 
-        LinkedList<Aula> aulasProfessor1 = professor1.getAulas();
-        LinkedList<Aula> aulasAluno1 = aluno1.getAulas();
+        segurancaAntonioSilva.adicionar(new Horario(DiaSemana.SABADO, 8, 8));
 
-        LinkedList<Aula> aulasProfessor1SegundaFeiraManha = professor1.getAulas(new Horario(DiaSemana.SEGUNDA_FEIRA, 8, 6));
-        LinkedList<Aula> aulasProfessor1SegundaFeiraTarde = professor1.getAulas(new Horario(DiaSemana.SEGUNDA_FEIRA, 14, 10));
+        Sala salaA1 = new Sala("Sala A1", true);
+        Sala salaA2 = new Sala("Sala A2", true);
+        Sala salaLAI1 = new Sala("Sala LAI1", false);
 
-        LinkedList<Aula> aulasProfessor2TercaFeiraManha = professor2.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 8, 6));
-        LinkedList<Aula> aulasProfessor2TercaFeira = professor2.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 8, 16));
+        Aula aula1 = new Aula("Programação II TP1", 1, new Horario(DiaSemana.SEGUNDA_FEIRA, 8, 2), salaA1);
+        Aula aula2 = new Aula("Programação II TP2", 2, new Horario(DiaSemana.SEGUNDA_FEIRA, 8, 2), salaA2);
+        Aula aula3 = new Aula("Programação II PL1", 3, new Horario(DiaSemana.SEGUNDA_FEIRA, 10, 3), salaLAI1);
 
-        LinkedList<Aula> aulasAluno1TercaFeira = aluno1.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 8, 16));
+        // Os Professores abrem/fecham o próprio gabinete e qualquer sala
+        professorManuelSilva.abrirGabinete();
+        professorCarlosSantos.fecharGabinete(); // O Professor Carlos Santos fecha o seu gabinete (partilhado), que o Professor Manuel Silva abriu
+        professorCarlosSantos.abrir(salaLAI1);
+        professorCarlosSantos.fechar(salaLAI1);
 
-        Professor professor3 = new Professor("António João", 3);
-        Aluno aluno3 = new Aluno("João Santos", 2192312);
-        Aula aula4 = new Aula("Matemática Discreta", 1, new Horario(DiaSemana.TERCA_FEIRA, 18, 2));
+        // Os Seguranças abrem/fecham o próprio gabinete e qualquer divisão (gabinete/sala)
+        segurancaMiguelMarques.abrirGabinete();
+        segurancaJoaoSantos.fechar(professorJoseMonteiro.getGabinete());
+        segurancaAntonioSilva.fechar(salaA1);
+        segurancaAntonioSilva.fechar(salaA2);
 
-        aula4.setProfessor(professor3);
-        for (Aluno aluno : alunos) {
-            aula4.adicionar(aluno);
+        System.out.println(aula1.getSala().getNome());
+
+        // Aplicação do Polimorfismo numa estrutura de dados
+        LinkedList<Descritor> descritores = new LinkedList<>();
+        descritores.add(gabineteProfessorA1);
+        descritores.add(gabineteProfessorD1);
+        descritores.add(gabineteSegurancaA);
+        descritores.add(gabineteSegurancaD);
+
+        descritores.add(professorManuelSilva);
+        descritores.add(professorCarlosSantos);
+        descritores.add(professorJoseMonteiro);
+
+        descritores.add(segurancaMiguelMarques);
+        descritores.add(segurancaJoaoSantos);
+        descritores.add(segurancaAntonioSilva);
+
+        descritores.add(salaA1);
+        descritores.add(salaA2);
+        descritores.add(salaLAI1);
+
+        descritores.add(aula1);
+        descritores.add(aula2);
+        descritores.add(aula3);
+
+        for (Descritor descritor : descritores) {
+            System.out.print("Nome: " + descritor.getNome() + " ");
+
+            if (descritor instanceof Identificador) { // Verifica se o descritor é do tipo Identificador
+                long numero = ((Identificador) descritor).getNumero(); // O cast é obrigatório para que seja possível aceder ao atributo numero
+                System.out.println("(Identificador: nº " + numero + ")");
+            } else if (descritor instanceof Divisao) { // Verifica se o descritor é do tipo Divisao
+                System.out.println("(Divisão)");
+            }
         }
-        aula4.adicionar(aluno3);
 
-        LinkedList<Aula> aulasAluno2TercaFeiraTarde = aluno2.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 14, 10));
-        LinkedList<Aula> aulasAluno2TercaFeiraAposAsDezanoveHoras = aluno2.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 19, 5));
-        LinkedList<Aula> aulasAluno2TercaFeiraAposAsVinteHoras = aluno2.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 20, 4));
-
-        LinkedList<Aula> aulasAluno3TercaFeira = aluno3.getAulas(new Horario(DiaSemana.TERCA_FEIRA, 8, 16));
+        // Exemplo de um cast sem verificação de Descritor para GabineteSeguranca
+        GabineteSeguranca gabineteSeguranca = (GabineteSeguranca) descritores.get(0);
+        // Ocorre um problema, visto que na primeira posição da lista está um GabineteProfessor
     }
 
     public static void main(String[] args) {

@@ -2,37 +2,27 @@ package modelo;
 
 import java.util.LinkedList;
 
-public class Aula {
+public class Aula extends Identificador {
     //Atributos
-    private String nome;
-    private Integer numero;
     private StringBuilder sumario;
     private Professor professor;
     private LinkedList<Aluno> alunos;
     private Horario horario;
+    private Sala sala;
 
     //Contrutores
-    public Aula(String nome, Integer numero, Horario horario) {
-        this(nome, numero,null, null, new LinkedList<>());
+    public Aula(String nome, Integer numero, Horario horario, Sala sala) {
+        this(nome, numero,null, null, new LinkedList<>(), sala);
     }
-    public Aula(String nome, Integer numero, Horario horario, Professor professor, LinkedList<Aluno> alunos){
-        this.nome = nome;
-        this.numero = numero;
+    public Aula(String nome, Integer numero, Horario horario, Professor professor, LinkedList<Aluno> alunos, Sala sala){
+        super(nome, numero);
         this.horario = horario;
         this.professor = professor;
         this.alunos = alunos;
+        this.sala = sala;
     }
 
     //Getters e Setters
-    public String getNome() {
-        return nome;
-    }
-    public Integer getNumero() {
-        return numero;
-    }
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
     public StringBuilder getSumario() {
         return sumario;
     }
@@ -44,6 +34,20 @@ public class Aula {
     }
     public Horario getHorario() {
         return horario;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void atribuir(Sala sala) {
+        this.sala = sala;
+    }
+
+    public void desassociar(){
+        if (this.sala == null)
+            return;
+        this.sala = null;
     }
 
     //Métodos Instância

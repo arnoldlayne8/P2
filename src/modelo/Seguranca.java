@@ -2,93 +2,73 @@ package modelo;
 
 import java.util.LinkedList;
 
-public class Seguranca extends Pessoa {
+public class Seguranca extends Pessoa
+    implements Funcionario<GabineteSeguranca, Divisao>{
 
-    private GabineteSeguranca gabineteSeguranca;
-    private LinkedList<Horario> horariosAtendimento;
+    private GestorFuncionarios<GabineteSeguranca, Divisao> gestorFuncionario;
 
     //Contrutores
     public Seguranca(String nome, int numero, GabineteSeguranca gabineteSeguranca) {
         super(nome, numero);
-        this.gabineteSeguranca = gabineteSeguranca;
-        this.horariosAtendimento = new LinkedList<>();
+        this.gestorFuncionario = new GestorFuncionarios<>(this);
+        atribuirGabinete(gabineteSeguranca);
     }
 
-    //Getters e Setters
-
-
-    public GabineteSeguranca getGabineteSeguranca() {
-        return gabineteSeguranca;
-    }
-
+    // Métodos de Horários
+    @Override
     public LinkedList<Horario> getHorariosAtendimento() {
-        return new LinkedList<>(horariosAtendimento);
-    }
-
-    //Métodos Instância
-    @Override
-    public void preencherSumario(Aula aula){
-        aula.adicionarLinhaSumario(aula.getNome());
-
-        assinarSumario(aula);
-
-        for (Aluno aluno:
-             aula.getAlunos()) {
-            aluno.preencherSumario(aula);
-        }
+        return gestorFuncionario.getHorariosAtendimento();
     }
 
     @Override
-    public void adicionar(Aula aula){
-        super.adicionar(aula);
-        aula.setProfessor(this);
-    }
-
-    @Override
-    public void remover(Aula aula){
-        super.remover(aula);
-        aula.desassociarProfessor();
-    }
-
-    public void abrirGabinete(GabineteSeguranca gabineteSeguranca){
-        this.gabineteSeguranca.setAberta(true);
-    }
-
-    public void fecharGabinete(GabineteSeguranca gabineteSeguranca){
-        this.gabineteSeguranca.setAberta(false);
-    }
-
-    public void abrir(Sala sala){
-        sala.setAberta(true);
-    }
-
-    public void fechar(Sala sala){
-        sala.setAberta(false);
-    }
-
-    public void atribuir(GabineteSeguranca gabineteSeguranca){
-        if (gabineteSeguranca == null || gabineteSeguranca == this.gabineteSeguranca)
-            return;
-        this.gabineteSeguranca = gabineteSeguranca;
-    }
-
-    public void desassociar(GabineteSeguranca gabineteSeguranca){
-        if (this.gabineteSeguranca == null)
-            return;
-        this.gabineteSeguranca = null;
-    }
-
     public void adicionar(Horario horarioAtendiemento){
-        if(horarioAtendiemento == null || horariosAtendimento.contains(horarioAtendiemento))
-            return;
-        this.horariosAtendimento.add(horarioAtendiemento);
+        gestorFuncionario.adicionar(horarioAtendiemento);
     }
 
+    @Override
     public void remover(Horario horarioAtendimento){
-        if (horarioAtendimento == null || !horariosAtendimento.contains(horarioAtendimento))
-            return;
-        this.horariosAtendimento.remove(horarioAtendimento);
+        gestorFuncionario.remover(horarioAtendimento);
     }
+
+    // Métodos de Gabinete
+    @Override
+    public GabineteSeguranca getGabinete() {
+        return gestorFuncionario.getGabinete();
+    }
+    @Override
+    public void atribuirGabinete(GabineteSeguranca gabineteSeguranca){
+        gestorFuncionario.atribuirGabinete(gabineteSeguranca);
+    }
+    @Override
+    public void desassociarGabinete(){
+        gestorFuncionario.desassociarGabinete();
+    }
+    @Override
+    public void abrirGabinete(){
+        gestorFuncionario.abrirGabinete();
+    }
+    @Override
+    public void fecharGabinete(){
+        gestorFuncionario.fecharGabinete();
+    }
+
+    // Métodos de Divisão
+
+    @Override
+    public void abrir(Divisao divisao) {
+        gestorFuncionario.abrir(divisao);
+    }
+
+    @Override
+    public void fechar(Divisao divisao) {
+        gestorFuncionario.fechar(divisao);
+    }
+
+
+
+
+
+
 
     //Métodos Estáticos
 

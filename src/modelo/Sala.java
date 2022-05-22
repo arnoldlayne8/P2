@@ -2,25 +2,46 @@ package modelo;
 
 import java.util.LinkedList;
 
-public class Sala extends Descritor {
-    private String nome;
-    private LinkedList<Aula> aulas;
-    private boolean aberta;
+public class Sala extends Divisao implements AssociavelAulas, RepositorioAulas {
+    private GestorAulas gestorAulas;
 
     public Sala(String nome, boolean aberta) {
-        super(nome);
-        this.aberta = aberta;
+        super(nome, aberta);
+        this.gestorAulas = new GestorAulas(this);
     }
 
-    public boolean isAberta() {
-        return aberta;
+    @Override
+    public LinkedList<Aula> getAulas() {
+        return gestorAulas.getAulas();
     }
 
-    public void setAulas(LinkedList<Aula> aulas) {
-        this.aulas = aulas;
+    @Override
+    public LinkedList<Aula> getAulas(Horario horario) {
+        return gestorAulas.getAulas(horario);
     }
 
-    public void setAberta(boolean aberta) {
-        this.aberta = aberta;
+    @Override
+    public void adicionar(Aula aula) {
+        gestorAulas.adicionar(aula);
+    }
+
+    @Override
+    public void remover(Aula aula) {
+        gestorAulas.remover(aula);
+    }
+
+    @Override
+    public boolean contem(Aula aula) {
+        return gestorAulas.contem(aula);
+    }
+
+    @Override
+    public void associar(Aula aula) {
+        aula.atribuir(this);
+    }
+
+    @Override
+    public void desassociar(Aula aula) {
+        aula.desassociarSala();
     }
 }

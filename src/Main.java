@@ -11,9 +11,9 @@ public class Main {
         GabineteSeguranca gabineteSegurancaA = new GabineteSeguranca("Gabinete Segurança - Edifício A", false);
         GabineteSeguranca gabineteSegurancaD = new GabineteSeguranca("Gabinete Segurança - Edifício D", false);
 
-        Seguranca professorManuelSilva = new Seguranca("Manuel Silva", 1, gabineteProfessorA1);
-        Seguranca professorCarlosSantos = new Seguranca("Carlos Santos", 2, gabineteProfessorA1);
-        Seguranca professorJoseMonteiro = new Seguranca("José Monteiro", 3, gabineteProfessorD1);
+        Professor professorManuelSilva = new Professor("Manuel Silva", 1, gabineteProfessorA1);
+        Professor professorCarlosSantos = new Professor("Carlos Santos", 2, gabineteProfessorA1);
+        Professor professorJoseMonteiro = new Professor("José Monteiro", 3, gabineteProfessorD1);
 
         professorManuelSilva.adicionar(new Horario(DiaSemana.SEGUNDA_FEIRA, 17, 2));
         professorCarlosSantos.adicionar(new Horario(DiaSemana.TERCA_FEIRA, 17, 2));
@@ -88,13 +88,14 @@ public class Main {
             if (descritor instanceof Identificador) { // Verifica se o descritor é do tipo Identificador
                 long numero = ((Identificador) descritor).getNumero(); // O cast é obrigatório para que seja possível aceder ao atributo numero
                 System.out.println("(Identificador: nº " + numero + ")");
-            } else if (descritor instanceof Divisao) { // Verifica se o descritor é do tipo Divisao
-                System.out.println("(Divisão)");
             }
+//            else if (descritor instanceof Divisao) { // Verifica se o descritor é do tipo Divisao
+//                System.out.println("(Divisão)");
+//            }
         }
 
         // Exemplo de um cast sem verificação de Descritor para GabineteSeguranca
-        GabineteSeguranca gabineteSeguranca = (GabineteSeguranca) descritores.get(0);
+        //GabineteSeguranca gabineteSeguranca = (GabineteSeguranca) descritores.get(0);
         // Ocorre um problema, visto que na primeira posição da lista está um GabineteProfessor
     }
 

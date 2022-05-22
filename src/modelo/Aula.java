@@ -44,7 +44,7 @@ public class Aula extends Identificador {
         this.sala = sala;
     }
 
-    public void desassociar(){
+    public void desassociarSala(){
         if (this.sala == null)
             return;
         this.sala = null;

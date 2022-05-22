@@ -2,42 +2,30 @@ package modelo;
 
 import java.util.LinkedList;
 
-public abstract class Gabinete {
-    private String nome;
-    private LinkedList<Seguranca> professores;
-    private boolean aberta;
+public abstract class Gabinete<TFuncionario extends Funcionario> extends Divisao {
+
+    protected LinkedList<TFuncionario> funcionarios;
 
     public Gabinete(String nome, boolean aberta) {
-        this.nome = nome;
-        this.aberta = aberta;
-        this.professores = new LinkedList<>();
+        super(nome, aberta);
+        this.funcionarios = new LinkedList<>();
     }
 
-    public String getNome() {
-        return nome;
+    public LinkedList<TFuncionario> getFuncionarios() {
+        return new LinkedList<>(funcionarios);
     }
 
-    public LinkedList<Seguranca> getProfessores() {
-        return new LinkedList<>(professores);
-    }
-
-    public boolean isAberta() {
-        return aberta;
-    }
-
-    public void setAberta(boolean aberta) {
-        this.aberta = aberta;
-    }
-
-    public void adicionar(Seguranca professor){
-        if(professor == null || professores.contains(professor))
+    public void adicionar(TFuncionario funcionario){
+        if(funcionario == null || funcionarios.contains(funcionario))
             return;
-        this.professores.add(professor);
+        this.funcionarios.add(funcionario);
+        funcionario.atribuirGabinete(this);
     }
 
-    public void remover(Seguranca professor){
-        if (professor == null || !professores.contains(professor))
+    public void remover(TFuncionario funcionario){
+        if (funcionario == null || !funcionarios.contains(funcionario))
             return;
-        this.professores.remove(professor);
+        this.funcionarios.remove(funcionario);
+        funcionario.desassociarGabinete();
     }
 }

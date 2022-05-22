@@ -2,32 +2,27 @@ package modelo;
 
 import java.util.LinkedList;
 
-public class Aluno extends Pessoa {
+public class Aluno extends PessoaComAulas {
     //Atributos
 
     //Contrutores
     public Aluno(String nome, Integer numero) {
         super(nome, numero);
-        this.aulas = new LinkedList<>();
     }
 
-    //Getters e Setters
-
-
     //Métodos Instância
-    public void preencherSumario (Aula aula){
-        if (aula == null)
-            return;
+    @Override
+    public void escreverSumario(Aula aula) {
         assinarSumario(aula);
     }
 
     @Override
-    public void adicionar(Aula aula){
-        super.adicionar(aula);
+    public void associar(Aula aula) {
         aula.adicionar(this);
     }
-    public void remover(Aula aula){
-        super.remover(aula);
+
+    @Override
+    public void desassociar(Aula aula) {
         aula.remover(this);
     }
 

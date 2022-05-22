@@ -18,7 +18,9 @@ public abstract class Divisao extends Descritor {
         this.aberta = aberta;
     }
 
-    public void adicionar(Seguranca professor){
+
+
+    /*public void adicionar(Seguranca professor){
         if(professor == null || professores.contains(professor))
             return;
         this.professores.add(professor);
@@ -28,5 +30,5 @@ public abstract class Divisao extends Descritor {
         if (professor == null || !professores.contains(professor))
             return;
         this.professores.remove(professor);
-    }
+    }*/
 }

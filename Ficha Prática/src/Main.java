@@ -88,13 +88,14 @@ public class Main {
             if (descritor instanceof Identificador) { // Verifica se o descritor é do tipo Identificador
                 long numero = ((Identificador) descritor).getNumero(); // O cast é obrigatório para que seja possível aceder ao atributo numero
                 System.out.println("(Identificador: nº " + numero + ")");
-            } else if (descritor instanceof Divisao) { // Verifica se o descritor é do tipo Divisao
-                System.out.println("(Divisão)");
             }
+//            else if (descritor instanceof Divisao) { // Verifica se o descritor é do tipo Divisao
+//                System.out.println("(Divisão)");
+//            }
         }
 
         // Exemplo de um cast sem verificação de Descritor para GabineteSeguranca
-        GabineteSeguranca gabineteSeguranca = (GabineteSeguranca) descritores.get(0);
+        //GabineteSeguranca gabineteSeguranca = (GabineteSeguranca) descritores.get(0);
         // Ocorre um problema, visto que na primeira posição da lista está um GabineteProfessor
     }
 
